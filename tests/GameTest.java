@@ -36,13 +36,15 @@ public class GameTest {
         int second = SECOND_SECRET_NUMBER;
         int third = THIRD_SECRET_NUMBER;
         int[] guessArray = new int[]{FIRST_SECRET_NUMBER, SECOND_SECRET_NUMBER, THIRD_SECRET_NUMBER};
-        assertTrue(game.isSolved(guessArray));
+        game.setGuessNumber(guessArray);
+        assertTrue(game.isSolved());
     }
 
     @Test
     public void should_return_false_if_secretNumber_and_guessNumber_are_not_equal() throws Exception {
         int[] guessArray = new int[]{2,3,4};
-        assertFalse(game.isSolved(guessArray));
+        game.setGuessNumber(guessArray);
+        assertFalse(game.isSolved());
     }
 
     @Test
@@ -51,7 +53,8 @@ public class GameTest {
         int second = 4;
         int third = 5;
         int[] guessArray = new int[]{FIRST_SECRET_NUMBER,4,5};
-        game.checkStrike(guessArray);
+        game.setGuessNumber(guessArray);
+        game.checkStrike();
         assertEquals(1, game.strike);
     }
 
@@ -61,7 +64,8 @@ public class GameTest {
         int second = FIRST_SECRET_NUMBER;
         int third = 5;
         int[] guessArray = new int[]{7,FIRST_SECRET_NUMBER,5};
-        game.checkBall(guessArray);
+        game.setGuessNumber(guessArray);
+        game.checkBall();
         assertEquals(1, game.ball);
     }
 
@@ -71,8 +75,9 @@ public class GameTest {
         int second = 1;
         int third = 4;
         int[] guessArray = new int[]{FIRST_SECRET_NUMBER,1,4};
-        game.checkStrike(guessArray);
-        game.checkBall(guessArray);
+        game.setGuessNumber(guessArray);
+        game.checkStrike();
+        game.checkBall();
         assertEquals(1, game.strike);
         assertEquals(0, game.ball);
     }
@@ -83,8 +88,9 @@ public class GameTest {
         int second = SECOND_SECRET_NUMBER;
         int third = THIRD_SECRET_NUMBER;
         int[] guessArray = new int[]{FIRST_SECRET_NUMBER, SECOND_SECRET_NUMBER, THIRD_SECRET_NUMBER};
-        game.checkStrike(guessArray);
-        game.checkBall(guessArray);
+        game.setGuessNumber(guessArray);
+        game.checkStrike();
+        game.checkBall();
         assertEquals(3, game.strike);
         assertEquals(0, game.ball);
     }

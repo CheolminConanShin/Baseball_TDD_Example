@@ -25,6 +25,8 @@ public class Game {
         }
         game.setSecretNumber(secretNumber);
 
+
+
         System.out.println("맞춰보세요");
         boolean isSolved;
         do {
@@ -33,9 +35,11 @@ public class Game {
             for (int i = 0; i < guess.length(); i++) {
                 guessNumber[i] = Character.getNumericValue(guess.charAt(i));
             }
+            game.setGuessNumber(guessNumber);
 
-            isSolved = game.isSolved(guessNumber);
-            game.checkBall(guessNumber);
+
+            isSolved = game.isSolved();
+            game.checkBall();
 
             System.out.println("guess : " + guess
                     + " -> solved : " + isSolved + ", "
@@ -44,22 +48,24 @@ public class Game {
         } while (!isSolved);
     }
 
+    public void setGuessNumber(int[] guessNumberArray) {
+        guessNumber[0] = guessNumberArray[0];
+        guessNumber[1] = guessNumberArray[1];
+        guessNumber[2] = guessNumberArray[2];
+    }
+
     public void setSecretNumber(int[] number) {
         secretNumber[0] = number[0];
         secretNumber[1] = number[1];
         secretNumber[2] = number[2];
     }
 
-    public boolean isSolved(int[] guessNumberArray) {
-        return checkStrike(guessNumberArray) == NUMBER_COUNT;
+    public boolean isSolved() {
+        return checkStrike() == NUMBER_COUNT;
     }
 
-    public int checkStrike(int[] guessNumberArray) {
+    public int checkStrike() {
         strike = 0;
-        guessNumber[0] = guessNumberArray[0];
-        guessNumber[1] = guessNumberArray[1];
-        guessNumber[2] = guessNumberArray[2];
-
         for (int i = 0; i < NUMBER_COUNT; i++) {
             checkStrikeForIndex(i);
         }
@@ -74,7 +80,7 @@ public class Game {
         }
     }
 
-    public int checkBall(int[] guessNumber) {
+    public int checkBall() {
         ball = 0;
         for (int guessNumberIndex = 0; guessNumberIndex < NUMBER_COUNT; guessNumberIndex++) {
             for (int secretNumberIndex = 0; secretNumberIndex < NUMBER_COUNT; secretNumberIndex++) {
