@@ -14,7 +14,8 @@ public class GameTest {
     @Before
     public void setUp() throws Exception {
         game = new Game();
-        game.setSecretNumber(FIRST_SECRET_NUMBER, SECOND_SECRET_NUMBER, THIRD_SECRET_NUMBER);
+        int[] guessArray = new int[]{FIRST_SECRET_NUMBER, SECOND_SECRET_NUMBER, THIRD_SECRET_NUMBER};
+        game.setSecretNumber(guessArray);
     }
 
     @Test
@@ -34,12 +35,14 @@ public class GameTest {
         int first = FIRST_SECRET_NUMBER;
         int second = SECOND_SECRET_NUMBER;
         int third = THIRD_SECRET_NUMBER;
-        assertTrue(game.isSolved(first, second, third));
+        int[] guessArray = new int[]{FIRST_SECRET_NUMBER, SECOND_SECRET_NUMBER, THIRD_SECRET_NUMBER};
+        assertTrue(game.isSolved(guessArray));
     }
 
     @Test
     public void should_return_false_if_secretNumber_and_guessNumber_are_not_equal() throws Exception {
-        assertFalse(game.isSolved(2,3, 4));
+        int[] guessArray = new int[]{2,3,4};
+        assertFalse(game.isSolved(guessArray));
     }
 
     @Test
@@ -47,7 +50,8 @@ public class GameTest {
         int first = FIRST_SECRET_NUMBER;
         int second = 4;
         int third = 5;
-        game.checkStrike(first, second, third);
+        int[] guessArray = new int[]{FIRST_SECRET_NUMBER,4,5};
+        game.checkStrike(guessArray);
         assertEquals(1, game.strike);
     }
 
@@ -56,7 +60,8 @@ public class GameTest {
         int first = 7;
         int second = FIRST_SECRET_NUMBER;
         int third = 5;
-        game.checkBall(first, second, third);
+        int[] guessArray = new int[]{7,FIRST_SECRET_NUMBER,5};
+        game.checkBall(guessArray);
         assertEquals(1, game.ball);
     }
 
@@ -65,8 +70,9 @@ public class GameTest {
         int first = FIRST_SECRET_NUMBER;
         int second = 1;
         int third = 4;
-        game.checkStrike(first,second,third);
-        game.checkBall(first,second,third);
+        int[] guessArray = new int[]{FIRST_SECRET_NUMBER,1,4};
+        game.checkStrike(guessArray);
+        game.checkBall(guessArray);
         assertEquals(1, game.strike);
         assertEquals(0, game.ball);
     }
@@ -76,8 +82,9 @@ public class GameTest {
         int first = FIRST_SECRET_NUMBER;
         int second = SECOND_SECRET_NUMBER;
         int third = THIRD_SECRET_NUMBER;
-        game.checkStrike(first,second,third);
-        game.checkBall(first,second,third);
+        int[] guessArray = new int[]{FIRST_SECRET_NUMBER, SECOND_SECRET_NUMBER, THIRD_SECRET_NUMBER};
+        game.checkStrike(guessArray);
+        game.checkBall(guessArray);
         assertEquals(3, game.strike);
         assertEquals(0, game.ball);
     }

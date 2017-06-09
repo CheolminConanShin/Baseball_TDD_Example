@@ -4,9 +4,6 @@ import java.util.Scanner;
  * Created by SDS on 2017-06-09.
  */
 public class Game {
-    public int firstSecretNumber;
-    public int secondSecretNumber;
-    public int thirdSecretNumber;
     public int[] secretNumber = new int[3];
     public int strike = 0;
     public int ball = 0;
@@ -14,43 +11,50 @@ public class Game {
     private boolean[] checkedSecretNumber = new boolean[3];
     private int[] guessNumber = new int[3];;
 
-
     public static void main(String[] args) {
         Game game = new Game();
         Scanner sc = new Scanner(System.in);
+
         System.out.println("정답을 입력하세요");
-        int first = sc.nextInt();
-        int second = sc.nextInt();
-        int third = sc.nextInt();
-        game.setSecretNumber(first, second, third);
+        String number = sc.next();
+        int[] secretNumber = new int[3];
+        for(int i = 0; i < number.length(); i++) {
+            secretNumber[i] = Character.getNumericValue(number.charAt(i));
+        }
+        game.setSecretNumber(secretNumber);
 
         System.out.println("맞춰보세요");
-        int firstGuess = sc.nextInt();
-        int secondGuess = sc.nextInt();
-        int thirdGuess = sc.nextInt();
-        String guess = "" + firstGuess + secondGuess + thirdGuess;
+        String guess = sc.next();
+        int[] guessNumber = new int[3];
+        for(int i = 0; i < guess.length(); i++) {
+            guessNumber[i] = Character.getNumericValue(guess.charAt(i));
+        }
+
+        boolean isSolved = game.isSolved(guessNumber);
+        game.checkBall(guessNumber);
 
         System.out.println("guess : " + guess
-                + " -> solved : " + game.isSolved(firstGuess, secondGuess, thirdGuess) + ", "
+                + " -> solved : " + isSolved + ", "
                 + game.strike + " strikes "
-                + game.checkBall(firstGuess, secondGuess, thirdGuess) + " balls");
+                + game.ball + " balls");
     }
 
-    public void setSecretNumber(int first, int second, int third) {
-       secretNumber[0] = first;
-       secretNumber[1] = second;
-       secretNumber[2] = third;
+    public void setSecretNumber(int[] number) {
+       secretNumber[0] = number[0];
+       secretNumber[1] = number[1];
+       secretNumber[2] = number[2];
     }
 
-    public boolean isSolved(int first, int second, int third) {
-        checkStrike(first, second, third);
+    public boolean isSolved(int[] guessNumberArray) {
+        checkStrike(guessNumberArray);
         return strike == 3;
     }
 
-    public int checkStrike(int first, int second, int third) {
-        guessNumber[0] = first;
-        guessNumber[1] = second;
-        guessNumber[2] = third;
+    public int checkStrike(int[] guessNumberArray) {
+        guessNumber[0] = guessNumberArray[0];
+        guessNumber[1] = guessNumberArray[1];
+        guessNumber[2] = guessNumberArray[2];
+
         checkStrikeForIndex(0);
         checkStrikeForIndex(1);
         checkStrikeForIndex(2);
@@ -65,11 +69,7 @@ public class Game {
         }
     }
 
-    public int checkBall(int first, int second, int third) {
-        guessNumber[0] = first;
-        guessNumber[1] = second;
-        guessNumber[2] = third;
-
+    public int checkBall(int[] guessNumber) {
         for(int guessNumberIndex = 0; guessNumberIndex < 3; guessNumberIndex++){
             for (int secretNumberIndex = 0; secretNumberIndex < 3; secretNumberIndex++) {
                 if (bothIndexesAreNotChecked(guessNumberIndex, secretNumberIndex)) {
