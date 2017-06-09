@@ -65,8 +65,8 @@ public class GameTest {
         int third = 5;
         int[] guessArray = new int[]{7,FIRST_SECRET_NUMBER,5};
         game.setGuessNumber(guessArray);
-        game.checkBall();
-        assertEquals(1, game.ball);
+
+        assertEquals(1, game.checkBall());
     }
 
     @Test

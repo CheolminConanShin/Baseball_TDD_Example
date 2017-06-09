@@ -6,8 +6,6 @@ import java.util.Scanner;
 public class Game {
     public static final int NUMBER_COUNT = 3;
     public int[] secretNumber = new int[3];
-    public int strike = 0;
-    public int ball = 0;
     private boolean[] checkedGuessNumber = new boolean[3];
     private boolean[] checkedSecretNumber = new boolean[3];
     private int[] guessNumber = new int[3];
@@ -26,7 +24,6 @@ public class Game {
         game.setSecretNumber(secretNumber);
 
 
-
         System.out.println("맞춰보세요");
         boolean isSolved;
         do {
@@ -39,12 +36,11 @@ public class Game {
 
 
             isSolved = game.isSolved();
-            game.checkBall();
 
             System.out.println("guess : " + guess
                     + " -> solved : " + isSolved + ", "
-                    + game.strike + " strikes "
-                    + game.ball + " balls");
+                    + game.checkStrike() + " strikes "
+                    + game.checkBall() + " balls");
         } while (!isSolved);
     }
 
@@ -82,7 +78,7 @@ public class Game {
     }
 
     public int checkBall() {
-        ball = 0;
+        int ball = 0;
         for (int guessNumberIndex = 0; guessNumberIndex < NUMBER_COUNT; guessNumberIndex++) {
             for (int secretNumberIndex = 0; secretNumberIndex < NUMBER_COUNT; secretNumberIndex++) {
                 if (bothIndexesAreNotChecked(guessNumberIndex, secretNumberIndex)) {
@@ -91,7 +87,7 @@ public class Game {
                     int currentSecretNumber = secretNumber[secretNumberIndex];
 
                     if (currentGuessNumber == currentSecretNumber) {
-                        increaseBallAndCheck(guessNumberIndex, secretNumberIndex);
+                        ball += increaseBallAndCheck(guessNumberIndex, secretNumberIndex);
                     }
                 }
             }
@@ -103,13 +99,9 @@ public class Game {
         return !checkedGuessNumber[guessIndex] && !checkedSecretNumber[secretIndex];
     }
 
-    private void increaseBallAndCheck(int guessIndex, int secretIndex) {
-        ball++;
+    private int increaseBallAndCheck(int guessIndex, int secretIndex) {
         checkedSecretNumber[secretIndex] = true;
         checkedGuessNumber[guessIndex] = true;
-    }
-
-    private boolean isNotStrike(int index) {
-        return !checkedGuessNumber[index];
+        return 1;
     }
 }
