@@ -65,19 +65,20 @@ public class Game {
     }
 
     public int checkStrike() {
-        strike = 0;
+        int strike = 0;
         for (int i = 0; i < NUMBER_COUNT; i++) {
-            checkStrikeForIndex(i);
+            strike += checkStrikeForIndex(i);
         }
         return strike;
     }
 
-    private void checkStrikeForIndex(int i) {
+    private int checkStrikeForIndex(int i) {
         if (secretNumber[i] == guessNumber[i]) {
-            strike++;
             checkedGuessNumber[i] = true;
             checkedSecretNumber[i] = true;
+            return 1;
         }
+        return 0;
     }
 
     public int checkBall() {

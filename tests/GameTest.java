@@ -54,8 +54,8 @@ public class GameTest {
         int third = 5;
         int[] guessArray = new int[]{FIRST_SECRET_NUMBER,4,5};
         game.setGuessNumber(guessArray);
-        game.checkStrike();
-        assertEquals(1, game.strike);
+
+        assertEquals(1, game.checkStrike());
     }
 
     @Test
@@ -76,10 +76,8 @@ public class GameTest {
         int third = 4;
         int[] guessArray = new int[]{FIRST_SECRET_NUMBER,1,4};
         game.setGuessNumber(guessArray);
-        game.checkStrike();
-        game.checkBall();
-        assertEquals(1, game.strike);
-        assertEquals(0, game.ball);
+        assertEquals(1, game.checkStrike());
+        assertEquals(0, game.checkBall());
     }
 
     @Test
@@ -89,9 +87,7 @@ public class GameTest {
         int third = THIRD_SECRET_NUMBER;
         int[] guessArray = new int[]{FIRST_SECRET_NUMBER, SECOND_SECRET_NUMBER, THIRD_SECRET_NUMBER};
         game.setGuessNumber(guessArray);
-        game.checkStrike();
-        game.checkBall();
-        assertEquals(3, game.strike);
-        assertEquals(0, game.ball);
+        assertEquals(3, game.checkStrike());
+        assertEquals(0, game.checkBall());
     }
 }
