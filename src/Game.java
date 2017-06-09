@@ -34,7 +34,6 @@ public class Game {
             }
             game.setGuessNumber(guessNumber);
 
-
             isSolved = game.isSolved();
 
             System.out.println("guess : " + guess
@@ -68,15 +67,6 @@ public class Game {
         return strike;
     }
 
-    private int checkStrikeForIndex(int i) {
-        if (secretNumber[i] == guessNumber[i]) {
-            checkedGuessNumber[i] = true;
-            checkedSecretNumber[i] = true;
-            return 1;
-        }
-        return 0;
-    }
-
     public int checkBall() {
         int ball = 0;
         for (int guessNumberIndex = 0; guessNumberIndex < NUMBER_COUNT; guessNumberIndex++) {
@@ -93,6 +83,15 @@ public class Game {
             }
         }
         return ball;
+    }
+
+    private int checkStrikeForIndex(int i) {
+        if (secretNumber[i] == guessNumber[i]) {
+            checkedGuessNumber[i] = true;
+            checkedSecretNumber[i] = true;
+            return 1;
+        }
+        return 0;
     }
 
     private boolean bothIndexesAreNotChecked(int guessIndex, int secretIndex) {
